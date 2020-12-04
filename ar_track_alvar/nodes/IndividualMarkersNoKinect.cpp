@@ -47,6 +47,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <dynamic_reconfigure/server.h>
 #include <ar_track_alvar/ParamsConfig.h>
+#include <cmath>
 
 using namespace alvar;
 using namespace std;
@@ -117,6 +118,15 @@ void getCapCallback (const sensor_msgs::ImageConstPtr & image_msg)
 				double qy = p.quaternion[2];
 				double qz = p.quaternion[3];
 				double qw = p.quaternion[0];
+
+        if (!isfinite(px + py + pz + qx + qy + qz)) {
+          std::cerr << "is infinite!!!    id: " << id << std::endl;
+          continue;
+        }
+        if (id == 0) {
+          std::cerr << "id0: " << px << " " << py << " " << pz << " " << qx << " " << qy << " " << qz << " " << qw << std::endl;
+          continue;
+        }
 
                 tf::Quaternion rotation (qx,qy,qz,qw);
                 tf::Vector3 origin (px,py,pz);
