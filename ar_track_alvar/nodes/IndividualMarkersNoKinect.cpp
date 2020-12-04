@@ -120,7 +120,7 @@ void getCapCallback (const sensor_msgs::ImageConstPtr & image_msg)
 				double qw = p.quaternion[0];
 
         if (!isfinite(px + py + pz + qx + qy + qz)) {
-          std::cerr << "is infinite!!!    id: " << id << std::endl;
+          std::cerr << "infinite!!!    id: " << id << std::endl;
           continue;
         }
         if (id == 0) {
